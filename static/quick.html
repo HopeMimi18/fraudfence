@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FraudFence Lite — Three checks</title><link rel="stylesheet" href="/static/quick.css"></head>
+<body>
+<header class="topbar"><div class="brand"><span class="mark">F</span><span>FRAUDFENCE <strong>LITE</strong></span></div><div class="topright"><span class="demo">SIMULATED DATA · NOT LIVE VERIFICATION</span><span id="who">Checking session…</span><a href="/">Full workspace</a><a href="/pitch">Pitch mode</a></div></header>
+<main class="wrap">
+<div class="intro"><div><p class="eyebrow">TEAM FORGE · HACKSECURE 2026</p><h1>Check. Confirm. Explain.</h1><p class="lead">A simple workflow for registered South African businesses. We make security decisions from evidence, never from a screenshot alone.</p></div><div class="intro-right"><div class="bubble">3</div><div>core actions<br><span>one simple screen</span></div></div></div>
+<div id="alert" class="alert" role="status" aria-live="polite">Ready. Company and bank checks are simulated unless official providers are configured.</div>
+<div class="three">
+<section class="tile" id="company-tile"><div class="tile-head"><span class="step">01</span><div><h2>Check supplier</h2><p>Is this the registered company and correct payee?</p></div></div>
+<div class="formbody">
+<p class="hint">1. UPLOAD INVOICE · AUTOFILL</p>
+<form id="quick-upload-form"><label>Invoice PDF or picture<input id="quick-upload-file" type="file" accept=".pdf,.png,.jpg,.jpeg,application/pdf,image/png,image/jpeg" required></label><button class="secondary" type="submit">Extract invoice details</button></form>
+<div class="result" id="quick-upload-result">No invoice loaded. Fields remain empty until a document is processed. Missing or ambiguous values must be reviewed manually.</div>
+
+<div class="divider"></div>
+<p class="hint">2. REVIEW COMPANY DETAILS · 2 FIELDS</p>
+<form id="company-form" autocomplete="off"><label>Company registration number<input name="registration" required placeholder="Filled after invoice upload (if found)" autocomplete="off"></label><label>Registered legal name<input name="legal_name" required placeholder="Filled after invoice upload (if found)" autocomplete="off"></label><button type="submit" class="primary">Check registration record</button></form>
+<div class="result" id="company-result">No company evidence checked. Upload a document, then review the suggested values.</div>
+<a href="https://www.bizportal.gov.za/" target="_blank" rel="noopener noreferrer" class="quiet-link">Manual official CIPC check: BizProfile ↗</a>
+<div class="divider"></div>
+<p class="hint">3. CHECK AN INVOICE AGAINST A SAVED SUPPLIER</p>
+<form id="invoice-form" autocomplete="off"><label>Supplier<select id="supplier-select" required><option value="" selected disabled>Upload an invoice to suggest a supplier</option></select></label><div class="twos"><label>Invoice number<input name="invoice_reference" required placeholder="Filled after invoice upload" autocomplete="off"></label><label>Amount (R)<input id="invoice-amount" type="number" min="0.01" step="0.01" required placeholder="Filled after invoice upload"></label></div><label>Account number on invoice <small>(fictional demo only)</small><input name="bank_account" required placeholder="Filled after invoice upload" autocomplete="off" inputmode="numeric"></label><label><input id="quick-invoice-reviewed" type="checkbox" required> I checked all values against the original invoice</label><button type="submit" class="secondary">Check invoice account</button></form><div class="result" id="invoice-result">Upload an invoice first. Then select the correct saved supplier and review the extracted details.</div>
+<div class="evidence"><strong>Three supplier evidence layers</strong><span>Company registry → bank ownership (AVS) → trusted callback</span><small>CIPC/AVS are mock checks today. A callback is an owner attestation.</small></div>
+</div></section>
+<section class="tile" id="payment-tile"><div class="tile-head"><span class="step">02</span><div><h2>Verify payment</h2><p>Did Ozow confirm this specific transaction?</p></div></div><div class="formbody"><p class="hint">CREATE SALE · 2 FIELDS</p>
+<form id="sale-form"><label>Unique sale reference<input id="sale-reference" required pattern="[A-Za-z0-9_-]+" value="FF1058DEMO" autocomplete="off"></label><label>Amount (R)<input id="sale-amount" type="number" min="0.01" step="0.01" required value="850.00"></label><button class="primary" type="submit">Create sale</button></form>
+<div class="result" id="sale-result">No sale yet. Screenshots are not proof of payment.</div>
+<div class="actions"><button id="quick-request-owner" class="primary" disabled>Request owner payment verification</button><button id="quick-refresh-sales" class="ghost" type="button">Refresh review queue</button></div>
+<div class="result" id="quick-review-queue">Cashier requests appear here for the owner; no banking credentials are shared.</div>
+<form id="quick-owner-review-form" hidden><p class="hint">OWNER ONLY · MANUAL BANK-APP REVIEW</p>
+<p id="quick-review-summary">Open a pending review request.</p>
+<p class="fine">Open your real receiving-bank app and check reference, amount and receipt. Do not trust screenshots.</p>
+<label><input id="quick-owner-checked" type="checkbox" required> I checked the receiving bank app personally</label>
+<label>Owner password<input id="quick-owner-password" type="password" required autocomplete="current-password"></label>
+<div class="actions"><button type="submit" data-review-decision="CONFIRMED" class="primary">Payment seen</button><button type="submit" data-review-decision="NOT_RECEIVED" class="secondary">No payment seen</button></div>
+</form>
+<div class="divider"></div><p class="hint">CHECK TRUSTED PAYMENT EVIDENCE</p>
+<div class="actions"><button class="secondary" id="ozow-start" disabled>Create Ozow staging checkout</button><button class="secondary" id="ozow-check" disabled>Check Ozow transaction</button></div><div id="checkout-wrap"></div><p class="fine" id="ozow-info">Ozow is not connected until staging credentials are configured.</p>
+<div class="divider"></div><p class="hint">LOCAL DEMO FALLBACK</p><button id="demo-payment" class="ghost" disabled>Inject fictional successful payment</button><button id="reconcile" class="ghost" disabled>Match fictional payment</button><p class="fine">Demo matches never mean money arrived. Do not release goods on simulated results.</p>
+<div class="evidence"><strong>Payment decision</strong><span>Awaiting → Pending / Not verified → Ozow provider-confirmed</span><small>Only Ozow-processed transactions can be verified through Ozow. Later settlement into the merchant bank is separate.</small></div>
+</div></section>
+<section class="tile" id="report-tile"><div class="tile-head"><span class="step">03</span><div><h2>AI fraud report</h2><p>What happened, what is the risk, and what next?</p></div></div><div class="formbody">
+<p class="hint">EXPLAIN THE ACTUAL SECURITY DECISION</p><div class="actions"><button id="invoice-report" class="primary" disabled>Explain invoice risk</button><button id="payment-report" class="secondary" disabled>Explain payment status</button></div>
+<div class="result" id="ai-status">Checking AI model connection…</div><pre id="report-content">Run an invoice or payment check first, then create an investigation report.</pre><button id="download-report" class="ghost" disabled>Save report (.txt)</button>
+<div class="evidence"><strong>Safety guardrail</strong><span>AI can explain; it cannot declare money received, override HOLD or verify companies.</span><small>Without a connected AI model, reports are clearly labelled rules-only.</small></div>
+</div></section></div>
+<div class="bottom"><div><h3>What can we claim in our pitch?</h3><p>Invoice account comparisons, permissions, signed receipts and simulated payment matching work. CIPC, AVS and Ozow staging need provider access; AI needs a configured model. An official registration record alone does not establish tax compliance or trustworthiness.</p></div><a href="/pitch">See the red-team security demo →</a></div>
+</main><script src="/static/quick.js" defer></script></body></html>

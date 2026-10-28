@@ -1,0 +1,41 @@
+# Local Python environments and caches
+.venv/
+venv/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.py[cod]
+.coverage
+coverage.xml
+htmlcov/
+
+# Never commit credentials, keys, local configuration or customer data
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.db-wal
+*.db-shm
+*.log
+*.secret
+secrets/
+keys/
+backups/
+receipts/
+checkpoints/
+data/*
+!data/.gitkeep
+
+# Operating system and editor noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
